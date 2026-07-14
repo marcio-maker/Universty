@@ -319,7 +319,7 @@
         .expert-card .avatar.bg-4 { background: #C0DD97; }
 
         /* ============================================================
-           LIÇÃO DO DIA
+           LIÇÃO DO DIA (COM FUNÇÃO REAL)
            ============================================================ */
         .lesson-card {
             background: var(--white);
@@ -1734,28 +1734,29 @@
                 </div>
             </div>
 
+            <!-- LIÇÃO DO DIA - AGORA FUNCIONAL -->
             <div class="section-label">Lição de hoje</div>
-            <div class="lesson-card" onclick="navigate('lesson')">
+            <div class="lesson-card" onclick="app.goToNextPendingAula()">
                 <div class="header">
                     <div class="icon">🧩</div>
                     <div>
-                        <div class="title">Como dizer não com afeto</div>
-                        <div class="meta">Com Dra. Ana · 8 minutos</div>
+                        <div class="title" id="lesson-title">Como dizer não com afeto</div>
+                        <div class="meta" id="lesson-meta">Com Dra. Ana · 8 minutos</div>
                     </div>
                     <i class="fas fa-chevron-right arrow"></i>
                 </div>
                 <div class="body">
                     <div class="progress-row">
                         <span>Seu progresso</span>
-                        <span class="pct">2 de 5 etapas</span>
+                        <span class="pct" id="lesson-progress">2 de 5 etapas</span>
                     </div>
                     <div class="bar">
-                        <div class="fill" style="width:40%;"></div>
+                        <div class="fill" style="width:40%;" id="lesson-bar"></div>
                     </div>
                     <div class="stats">
-                        <div class="stat"><div class="num">120</div><div class="lbl">XP total</div></div>
-                        <div class="stat"><div class="num">Nível 3</div><div class="lbl">Sua fase</div></div>
-                        <div class="stat"><div class="num">4.8 ★</div><div class="lbl">Avaliação</div></div>
+                        <div class="stat"><div class="num" id="lesson-xp">120</div><div class="lbl">XP total</div></div>
+                        <div class="stat"><div class="num" id="lesson-level">Nível 3</div><div class="lbl">Sua fase</div></div>
+                        <div class="stat"><div class="num" id="lesson-rating">4.8 ★</div><div class="lbl">Avaliação</div></div>
                     </div>
                 </div>
             </div>
@@ -2028,7 +2029,7 @@
                     </div>
                 </div>
 
-                <!-- Depoimentos (do original) -->
+                <!-- Depoimentos -->
                 <div style="margin-top:24px;">
                     <h3 style="text-align:center;margin-bottom:14px;font-size:16px;color:var(--green-700);">
                         <i class="fas fa-quote-left"></i> O que os pais estão dizendo
@@ -2870,11 +2871,58 @@
             }
         };
 
+        // ===== NOVA FUNÇÃO: LIÇÃO DO DIA =====
+        UniversidadePaisApp.prototype.goToNextPendingAula = function() {
+            var next = this.findNextPendingAula();
+            if (next) {
+                this.navWithHistory('aula', next.moduleId, next.aulaId);
+            } else {
+                this.showToast('🎉 Você já concluiu todas as aulas!', 'success');
+            }
+        };
+
         // ===== RENDER FUNCTIONS =====
         UniversidadePaisApp.prototype.renderHome = function() {
             this.renderModules();
             this.updateHomeStats();
             this.updateStreak();
+            this.updateLessonCard();
+        };
+
+        UniversidadePaisApp.prototype.updateLessonCard = function() {
+            var next = this.findNextPendingAula();
+            var lessonTitle = document.getElementById('lesson-title');
+            var lessonMeta = document.getElementById('lesson-meta');
+            var lessonProgress = document.getElementById('lesson-progress');
+            var lessonBar = document.getElementById('lesson-bar');
+            var lessonXp = document.getElementById('lesson-xp');
+            var lessonLevel = document.getElementById('lesson-level');
+            var lessonRating = document.getElementById('lesson-rating');
+
+            if (next) {
+                var module = COURSE.modules[next.moduleId];
+                var aula = module.aulas[next.aulaId];
+                var progress = this.stateManager.getModuleProgress(next.moduleId);
+                var total = progress.total;
+                var completed = progress.completed;
+                var pct = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+                lessonTitle.textContent = aula.title;
+                lessonMeta.textContent = 'Módulo ' + (next.moduleId + 1) + ' • ' + aula.duration;
+                lessonProgress.textContent = completed + ' de ' + total + ' aulas';
+                lessonBar.style.width = pct + '%';
+                lessonXp.textContent = (pct * 10) + ' XP';
+                lessonLevel.textContent = 'Nível ' + (Math.floor(pct / 20) + 1);
+                lessonRating.textContent = (4 + (pct / 100)).toFixed(1) + ' ★';
+            } else {
+                lessonTitle.textContent = '🎉 Curso Concluído!';
+                lessonMeta.textContent = 'Parabéns! Você finalizou todas as aulas.';
+                lessonProgress.textContent = '32 de 32 aulas';
+                lessonBar.style.width = '100%';
+                lessonXp.textContent = '320 XP';
+                lessonLevel.textContent = 'Nível 5';
+                lessonRating.textContent = '5.0 ★';
+            }
         };
 
         UniversidadePaisApp.prototype.renderModules = function() {
@@ -4523,13 +4571,14 @@
         window.removeProfilePhoto = function() { app.removeProfilePhoto(); };
         window.saveInitialAccount = function() { app.saveInitialAccount(); };
         window.handleExistingUser = function() { app.handleExistingUser(); };
+        window.goToNextPendingAula = function() { app.goToNextPendingAula(); };
 
         console.log('🎓 ' + APP_CONFIG.NAME + ' v' + APP_CONFIG.VERSION + ' COMPLETO!');
         console.log('📚 32 aulas completas');
         console.log('🧠 32 quizzes');
         console.log('😊 24 emoções');
         console.log('📱 Header e Footer flutuantes estilo Instagram');
-        console.log('✅ Todas as funcionalidades implementadas');
+        console.log('✅ Lição do dia funcionando com próxima aula pendente');
         console.log('📊 Total de linhas: ~5.200+');
     </script>
 
