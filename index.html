@@ -1303,27 +1303,71 @@
             }
             .explore-grid { grid-template-columns: 1fr 1fr; }
         }
-        /* ============================================================
-   MODO ESCURO
+       /* ============================================================
+   MODO ESCURO - CORRIGIDO
    ============================================================ */
 .dark-mode {
-    --neutral-900: #ffffff;
-    --neutral-800: #ffffff;
-    --neutral-700: #ffffff;
-    --neutral-600: #e0e0e0;
-    --neutral-500: #cccccc;
-    background: #1a1a2e;
+    background: #0d0d1a !important;
 }
 .dark-mode .app {
-    background: #1a1a2e;
+    background: #0d0d1a !important;
 }
 .dark-mode .app-header {
-    background: rgba(26, 26, 46, 0.95);
+    background: rgba(13, 13, 26, 0.95) !important;
+    border-color: rgba(255,255,255,0.05) !important;
 }
 .dark-mode .bottom-nav {
-    background: rgba(26, 26, 46, 0.95);
+    background: rgba(13, 13, 26, 0.95) !important;
+    border-color: rgba(255,255,255,0.05) !important;
 }
-.dark-mode .card,
+.dark-mode .brand-title,
+.dark-mode .brand-sub,
+.dark-mode .greeting .hello,
+.dark-mode .greeting .name,
+.dark-mode .section-label,
+.dark-mode .streak-card span,
+.dark-mode .stats-card h3,
+.dark-mode .stats-grid .stat .lbl,
+.dark-mode .module-info h3,
+.dark-mode .module-info p,
+.dark-mode .module-progress .progress-text,
+.dark-mode .aula-info h3,
+.dark-mode .aula-info p,
+.dark-mode .player-header h2,
+.dark-mode .text-muted,
+.dark-mode .profile-name,
+.dark-mode .profile-email,
+.dark-mode .profile-field label,
+.dark-mode .profile-toggle .label,
+.dark-mode .note-item .title,
+.dark-mode .note-item .content,
+.dark-mode .note-item .date,
+.dark-mode .benefit-card h3,
+.dark-mode .benefit-card p,
+.dark-mode .benefit-card .tags span,
+.dark-mode .emotion-card .name,
+.dark-mode .emotion-card .desc,
+.dark-mode .faq-item .question,
+.dark-mode .faq-item .answer,
+.dark-mode .share-btn,
+.dark-mode .chat-header .info .title,
+.dark-mode .chat-header .info .sub,
+.dark-mode .msg.agent,
+.dark-mode .msg.agent .name,
+.dark-mode .quick-prompt,
+.dark-mode .chat-input-row input,
+.dark-mode .complete-container h2,
+.dark-mode .complete-container .text-muted,
+.dark-mode .about-container .card h3,
+.dark-mode .about-container .card p,
+.dark-mode .favorites-empty p,
+.dark-mode .explore-card .title,
+.dark-mode .explore-card .desc,
+.dark-mode .lesson-card .body .progress-row,
+.dark-mode .lesson-card .body .stats .stat .num,
+.dark-mode .lesson-card .body .stats .stat .lbl {
+    color: #ffffff !important;
+}
 .dark-mode .module,
 .dark-mode .aula,
 .dark-mode .streak-card,
@@ -1336,27 +1380,66 @@
 .dark-mode .explore-card,
 .dark-mode .note-form,
 .dark-mode .profile-stat,
-.dark-mode .quiz-container {
-    background: #2a2a3e;
+.dark-mode .quiz-container,
+.dark-mode .card,
+.dark-mode .player,
+.dark-mode .search-bar input,
+.dark-mode .profile-field input,
+.dark-mode .note-form input,
+.dark-mode .note-form textarea,
+.dark-mode .option-card {
+    background: #1a1a2e !important;
+    border-color: rgba(255,255,255,0.05) !important;
+    color: #ffffff !important;
 }
-.dark-mode .text-muted {
-    color: #bbbbbb !important;
+.dark-mode .option-card:hover:not(.correct):not(.wrong) {
+    background: #2a2a42 !important;
+}
+.dark-mode .btn.ghost {
+    background: transparent !important;
+    border-color: rgba(255,255,255,0.1) !important;
+    color: #ffffff !important;
+}
+.dark-mode .btn.ghost:hover {
+    background: rgba(255,255,255,0.05) !important;
+}
+.dark-mode .nav-btn i,
+.dark-mode .nav-btn span {
+    color: #555 !important;
+}
+.dark-mode .nav-btn.active i,
+.dark-mode .nav-btn.active span {
+    color: #6AD48A !important;
 }
 .dark-mode .module-status {
     color: #6AD48A !important;
 }
-.dark-mode .search-bar input {
-    background: #2a2a3e;
-    color: #ffffff;
+.dark-mode .streak-dots .dot.active {
+    background: #6AD48A !important;
 }
-.dark-mode .profile-field input {
-    background: #2a2a3e;
-    color: #ffffff;
+.dark-mode .lesson-card .header {
+    background: #1F783C !important;
 }
-.dark-mode .note-form input,
-.dark-mode .note-form textarea {
-    background: #2a2a3e;
-    color: #ffffff;
+.dark-mode .lesson-card .header .title {
+    color: #ffffff !important;
+}
+.dark-mode .lesson-card .body .bar {
+    background: #2a2a42 !important;
+}
+.dark-mode .lesson-card .body .bar .fill {
+    background: #6AD48A !important;
+}
+.dark-mode .msg.user {
+    background: #2A9D52 !important;
+}
+.dark-mode .msg.integrated {
+    background: #1F783C !important;
+}
+.dark-mode .msg.integrated strong {
+    color: #FFD700 !important;
+}
+.dark-mode .toast-float {
+    color: #ffffff !important;
 }
     </style>
 </head>
